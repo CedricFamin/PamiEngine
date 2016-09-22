@@ -1,6 +1,6 @@
-workspace "PamiEngine"
-    configuration { "Debug", "Release" }
-    location "_build"
+toolset "msc-llvm-vs2014"
 
-    include "Core"
-    include "Externals"
+include "Build"
+include "Externals"
+include "Tools"
+include "Core"
