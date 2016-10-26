@@ -30,11 +30,10 @@ namespace AutoBinding
     class TypeInspectorPointer : public TypeInspectorResult
     {
     public:
-        TypeInspectorPointer(clang::Type const * type, FieldDescriptor * fd);
+        TypeInspectorPointer(clang::Type const * type);
         virtual std::string exec(FieldDescriptor * fd) override;
     private:
         clang::Type const * m_type;
-        FieldDescriptor * m_fd;
     };
 
     //-------------------------------------------------------------
@@ -42,11 +41,10 @@ namespace AutoBinding
     class TypeInspectorClass : public TypeInspectorResult
     {
     public:
-        TypeInspectorClass(clang::Type const * type, FieldDescriptor * fd);
+        TypeInspectorClass(clang::Type const * type);
         virtual std::string exec(FieldDescriptor * fd) override;
     private:
         clang::Type const * m_type;
-        FieldDescriptor * m_fd;
     };
 
     //-------------------------------------------------------------

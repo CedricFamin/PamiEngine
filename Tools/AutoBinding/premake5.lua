@@ -1,4 +1,10 @@
 project "AutoBinding"
+
+  install(function(prj)
+      os.copyfile("Tools/_build/bin/x64/Release/AutoBinding.exe", "Utils/AutoBind.exe")
+      os.copydir("Tools/AutoBinding/Templates", "Utils/Templates")
+  end)
+
   kind "ConsoleApp"
   language "C++"
 
@@ -6,8 +12,11 @@ project "AutoBinding"
 
   files { "**.cpp", "**.h" }
 
+  excludes { "Templates/*"}
+
   includedirs
   {
+      ".",
       "../../Externals/llvm/tools/clang/include",
       "../../Externals/llvm/include",
       "../../Externals/",
@@ -46,14 +55,12 @@ project "AutoBinding"
       libdirs
       {
           "../../Externals/llvm/Release/lib",
-          "../../Externals/Jinja2CPPLight/_build/bin/x64/Release",
       }
 
   configuration { "Debug" }
       libdirs
       {
           "../../Externals/llvm/Debug/lib",
-          "../../Externals/Jinja2CPPLight/_build/bin/x64/Release",
       }
 
       defines { "_SCL_SECURE_NO_WARNINGS" }

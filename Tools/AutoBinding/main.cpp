@@ -5,17 +5,16 @@
 
 #include "Clang.h"
 
-#include "Jinja2CppLight.h"
-#include "TypeDescriptor.h"
-#include "TypeInspector.h"
-#include "RTTIClassCollector.h"
+#include "Jinja2Cpp/Jinja2CppLight.h"
+#include "RTTI/TypeDescriptor.h"
+#include "RTTI/TypeInspector.h"
+#include "RTTI/RTTIClassCollector.h"
 
 
 static llvm::cl::OptionCategory MyToolCategory("my-tool options");
 
 int main(int argc, const char **argv)
 {
-
     clang::tooling::CommonOptionsParser OptionsParser(argc, argv, MyToolCategory);
     clang::tooling::ClangTool Tool(OptionsParser.getCompilations(), OptionsParser.getSourcePathList());
 
@@ -34,7 +33,6 @@ int main(int argc, const char **argv)
         t.seekg(0, std::ios::beg);
         templateString.assign((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
     }
-    
     
     std::vector<std::string> const & sourcePath = OptionsParser.getSourcePathList();
     assert(sourcePath.size() == 1);

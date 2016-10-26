@@ -16,30 +16,28 @@ namespace AutoBinding
     
     //-------------------------------------------------------------
     //-------------------------------------------------------------
-    TypeInspectorPointer::TypeInspectorPointer(clang::Type const * type, FieldDescriptor * fd)
-        : m_type(type), m_fd(fd)
+    TypeInspectorPointer::TypeInspectorPointer(clang::Type const * type)
+        : m_type(type)
     {
     }
 
     std::string TypeInspectorPointer::exec(FieldDescriptor * fd)
     {
-        return typeInspector(m_type->getPointeeOrArrayElementType(), m_fd) + std::string(" *");
+        return typeInspector(m_type->getPointeeOrArrayElementType(), fd) + std::string(" *");
     }
     
     //-------------------------------------------------------------
     //-------------------------------------------------------------
-    TypeInspectorClass::TypeInspectorClass(clang::Type const * type, FieldDescriptor * fd)
-        : m_type(type), m_fd(fd)
+    TypeInspectorClass::TypeInspectorClass(clang::Type const * type)
+        : m_type(type)
     {
     }
 
     std::string TypeInspectorClass::exec(FieldDescriptor * fd)
     {
-
         clang::CXXRecordDecl * record = m_type->getAsCXXRecordDecl();
         if (record->isInStdNamespace())
         {
-
             std::string type = "std::";
             type += record->getName();
             if (record->getTemplateSpecializationKind() != clang::TSK_Undeclared)
@@ -89,8 +87,8 @@ namespace AutoBinding
         AddLeafCheck(checks, &clang::Type::isBooleanType, "Bool");
         AddLeafCheck(checks, &clang::Type::isEnumeralType, "Enum");
         AddLeafCheck(checks, &clang::Type::isIntegerType, "Int");
-        AddChecks(checks, &clang::Type::isPointerType, new TypeInspectorPointer(type, fd));
-        AddChecks(checks, &clang::Type::isRecordType, new TypeInspectorClass(type, fd));
+        AddChecks(checks, &clang::Type::isPointerType, new TypeInspectorPointer(type));
+        AddChecks(checks, &clang::Type::isRecordType, new TypeInspectorClass(type));
         for (auto it : checks)
         {
             if ((type->*it.first)())

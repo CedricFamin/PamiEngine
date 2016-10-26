@@ -30,6 +30,8 @@ namespace AutoBinding
         void AddField(FieldDescriptor * field);
         std::string ImportCode() const;
         std::string const & Name() const;
+
+        std::vector<FieldDescriptor*> const & Fields() const { return m_fields; }
     private:
         std::vector<FieldDescriptor*> m_fields;
         std::string m_name;
