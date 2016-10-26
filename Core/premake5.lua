@@ -21,4 +21,5 @@ workspace "PamiEngine"
 
     include "App"
     include "RTTI"
+    include 'Utility'
     --include "Clusters"

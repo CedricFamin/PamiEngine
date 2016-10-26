@@ -2,7 +2,7 @@ BaseProject "App"
 
   files { "**.cpp", "**.h" }
 
-  links { "lua51", "RTTI" }
+  links { "lua51", "RTTI", "Utility" }
 
   includedirs
   {
